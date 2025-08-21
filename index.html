@@ -4,86 +4,125 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Colonna Sonora Ele & Ale</title>
+
+  <!-- Font Ex Padrian -->
+  <link href="https://fonts.cdnfonts.com/css/ex-padrian" rel="stylesheet">
+  <!-- Preload sfondo: metti "sfondo2.jpg" accanto a index.html -->
+  <link rel="preload" as="image" href="sfondo2.jpg" />
+
   <style>
-    body {
-      margin: 0;
-      padding: 40px 20px;
-      font-family: 'Georgia', serif;
-      background: #f9f4ef url('https://cdn.pixabay.com/photo/2018/01/17/07/05/vinyl-3084956_1280.jpg') no-repeat center center fixed;
-      background-size: contain;
-      color: #3b2f2f;
-      text-align: center;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      box-sizing: border-box;
+    :root { --ink:#4a3f30; --accent:#8a6d4f; }
+    html, body { height:100%; margin:0; }
+
+    /* Fallback “carta chiara” sempre visibile */
+    body{
+      color:var(--ink);
+      font-family:'Ex Padrian', Georgia, serif;
+      display:flex; flex-direction:column;
+      background:
+        radial-gradient(90% 60% at 10% -10%, rgba(255,255,255,0.9), rgba(255,255,255,0) 60%),
+        radial-gradient(90% 60% at 110% 110%, rgba(255,255,255,0.9), rgba(255,255,255,0) 60%),
+        linear-gradient(180deg,#fbfaf7 0%,#f4efe7 100%);
+      text-align:center;
+      text-shadow:1px 1px 2px rgba(255,255,255,0.6);
+      min-height:100vh;
     }
-    h1 {
-      font-size: 3.5em;
-      margin-bottom: 0.2em;
-      font-weight: 700;
+
+    /* Quando lo sfondo è pronto, applico immagine + overlay leggero */
+    body.bg-loaded{
+      background:
+        linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.15)),
+        url("sfondo2.jpg") no-repeat center center fixed,
+        radial-gradient(90% 60% at 10% -10%, rgba(255,255,255,0.9), rgba(255,255,255,0) 60%),
+        radial-gradient(90% 60% at 110% 110%, rgba(255,255,255,0.9), rgba(255,255,255,0) 60%),
+        linear-gradient(180deg,#fbfaf7 0%,#f4efe7 100%);
+      background-size:cover;
     }
-    p.subtitle {
-      font-size: 1.5em;
-      margin-top: 0;
-      margin-bottom: 2em;
-      font-style: italic;
+
+    .spacer{ flex:1; }
+    main.stack{
+      margin: 0 auto 10vh auto;               /* centrato-basso */
+      max-width:min(900px, 100%);
+      padding: 20px;
+      display:grid; gap:14px;
     }
-    .instructions {
-      font-size: 1.2em;
-      max-width: 480px;
-      margin: 20px auto;
-      line-height: 1.4;
+
+    h1{ font-size:clamp(32px,6vw,56px); margin:0 0 .2em; font-weight:400; }
+    p.subtitle{ font-size:clamp(16px,3.2vw,22px); margin:0 0 1em; font-style:italic; }
+
+    .instructions{
+      font-size:clamp(15px,3.8vw,20px);
+      line-height:1.45;
+      max-width:560px;
+      margin: 8px auto 0;
     }
-    a.button {
-      display: inline-block;
-      background-color: #8a6d4f;
-      color: #f9f4ef;
-      padding: 15px 30px;
-      margin: 15px 10px;
-      border-radius: 30px;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 1.2em;
-      box-shadow: 0 3px 7px rgba(0,0,0,0.3);
-      transition: background-color 0.3s ease;
-      max-width: 320px;
+
+    .actions{ display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin: 8px 0 12px; }
+    a.button{
+      display:inline-block;
+      background:#fff;
+      border:1px solid #d9d0c1;
+      color:var(--ink);
+      padding:.7em 1.2em;
+      border-radius:999px;
+      font-weight:600;
+      text-decoration:none;
+      font-size:clamp(15px,3.8vw,18px);
+      box-shadow:0 3px 7px rgba(0,0,0,0.08);
+      transition:transform .1s ease, box-shadow .2s ease, background .2s ease;
+      max-width: min(100%, 340px);
       word-break: break-word;
     }
-    a.button:hover {
-      background-color: #70563f;
-    }
-    footer {
-      margin-top: 3em;
-      font-size: 1.1em;
-      font-style: italic;
-      color: #5c4a3d;
+    a.button:hover{ transform:translateY(-2px); box-shadow:0 6px 14px rgba(0,0,0,0.12); }
+    a.button.primary{ background:#fff; border-color:#c8bca8; }
+    a.button.secondary{ background:rgba(255,255,255,0.8); }
+
+    footer{ margin-top: 2px; font-size:clamp(14px,3vw,18px); font-style:italic; }
+
+    /* Entrata morbida dei blocchi */
+    .fade{ opacity:0; transform:translateY(8px); animation:fadeInUp .4s ease .05s forwards; }
+    .fade2{ opacity:0; transform:translateY(8px); animation:fadeInUp .4s ease .12s forwards; }
+    .fade3{ opacity:0; transform:translateY(8px); animation:fadeInUp .4s ease .18s forwards; }
+    @keyframes fadeInUp{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+    @media (prefers-reduced-motion: reduce){
+      .fade,.fade2,.fade3{ animation:none; opacity:1; transform:none; }
     }
   </style>
 </head>
 <body>
-  <h1>La colonna sonora di Ele & Ale</h1>
-  <p class="subtitle">Scopri, ascolta e aggiungi la tua canzone per il futuro.</p>
+  <div class="spacer"></div>
 
-  <p class="instructions">
-    <strong>Se hai Spotify:</strong><br/>
-    Clicca il link qui sotto per ascoltare e aggiungere direttamente alla playlist.
-  </p>
-  <a href="https://open.spotify.com/playlist/2XTrRlyfbnwczQ5GrB6MgH?si=jyJHiTx1TfqiTaFJY0rNJg&pt=fb4b6b0116092ddff5f7e9a27c6a32b0" target="_blank" rel="noopener" class="button">
-    Ascolta e aggiungi su Spotify
-  </a>
+  <main class="stack">
+    <h1 class="fade">La colonna sonora di Ele &amp; Ale</h1>
+    <p class="subtitle fade2">Scopri, ascolta e aggiungi la tua canzone per il futuro.</p>
 
-  <p class="instructions" style="margin-top: 2.5em;">
-    <strong>Se non hai Spotify:</strong><br/>
-    Suggerisci una canzone tramite il modulo online.
-  </p>
-  <a href="https://form.typeform.com/to/A9PDXF4m" target="_blank" rel="noopener" class="button">
-    Suggerisci una canzone
-  </a>
+    <section class="fade3">
+      <p class="instructions"><strong>Se hai Spotify:</strong><br/>Clicca il pulsante qui sotto per ascoltare e aggiungere direttamente alla playlist.</p>
+      <div class="actions">
+        <a href="https://open.spotify.com/playlist/2XTrRlyfbnwczQ5GrB6MgH?si=jyJHiTx1TfqiTaFJY0rNJg&pt=fb4b6b0116092ddff5f7e9a27c6a32b0"
+           target="_blank" rel="noopener"
+           class="button primary">Ascolta e aggiungi su Spotify</a>
+      </div>
 
-  <footer>
-    Grazie di cuore per contribuire a rendere questa playlist speciale e unica.
-  </footer>
+      <p class="instructions" style="margin-top:14px;"><strong>Se non hai Spotify:</strong><br/>Suggerisci una canzone tramite il modulo online.</p>
+      <div class="actions">
+        <a href="https://form.typeform.com/to/A9PDXF4m"
+           target="_blank" rel="noopener"
+           class="button secondary">Suggerisci una canzone</a>
+      </div>
+    </section>
+
+    <footer class="fade3">Grazie di cuore per contribuire a rendere questa playlist speciale e unica.</footer>
+  </main>
+
+  <script>
+    // Precarico sfondo e applico quando pronto (come nell’altro sito)
+    (function preloadBg(){
+      const img = new Image();
+      img.onload = () => document.body.classList.add('bg-loaded');
+      img.onerror = () => {/* resta il fallback */}
+      img.src = 'sfondo2.jpg'; // carica tu l’immagine con questo nome, stessa cartella
+    })();
+  </script>
 </body>
 </html>
